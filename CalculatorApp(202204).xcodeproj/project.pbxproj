@@ -14,6 +14,8 @@
 		1A82C7C1280403FA00323E80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82C7BF280403FA00323E80 /* LaunchScreen.storyboard */; };
 		1A82C7CC2804048500323E80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82C7CB2804048500323E80 /* LoginViewController.swift */; };
 		1A82C7CE28040F5300323E80 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82C7CD28040F5300323E80 /* CalculatorViewController.swift */; };
+		1A82C7D0280524DD00323E80 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82C7CF280524DD00323E80 /* Number.swift */; };
+		1A82C7D2280524EB00323E80 /* OperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82C7D1280524EB00323E80 /* OperationType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		1A82C7C2280403FA00323E80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A82C7CB2804048500323E80 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1A82C7CD28040F5300323E80 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
+		1A82C7CF280524DD00323E80 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
+		1A82C7D1280524EB00323E80 /* OperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 		1A82C7CA2804042E00323E80 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1A82C7D1280524EB00323E80 /* OperationType.swift */,
+				1A82C7CF280524DD00323E80 /* Number.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -164,6 +170,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A82C7D0280524DD00323E80 /* Number.swift in Sources */,
+				1A82C7D2280524EB00323E80 /* OperationType.swift in Sources */,
 				1A82C7CC2804048500323E80 /* LoginViewController.swift in Sources */,
 				1A82C7B5280403F800323E80 /* AppDelegate.swift in Sources */,
 				1A82C7CE28040F5300323E80 /* CalculatorViewController.swift in Sources */,

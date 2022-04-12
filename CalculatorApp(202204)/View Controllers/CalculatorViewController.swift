@@ -7,15 +7,164 @@
 
 import UIKit
 
-class CalculatorViewController: UIViewController {
+extension String {
+    func toDecimalValue() -> Decimal? {
+        let decimal = Decimal(string: self)
+        return decimal
+    }
+}
 
+class CalculatorViewController: UIViewController {
+    
+    private var tempNumber: String? = "0"
+    private var previousNumber: Decimal = 0
+    private var result: Decimal = 0
+    
+    private var isOperating: Bool = false
+    private var isNegative: Bool = false
+    private var isDecimal: Bool = false
+    
+    private var operationType: OperationType = .none
+    
+    @IBOutlet weak var numberLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        numberLabel.text = Number.zero.title()
     }
     
+    @IBAction func pressNumberButton(_ sender: UIButton) {
+        
+        let numberTag: Int = sender.tag
+        var inputNumber: String = ""
+        
+        inputNumber = "\(numberTag)"
+        
+        updateLabelFrame(inputNumber: inputNumber)
+    }
+    
+    private func updateLabelFrame(inputNumber: String) {
+        
+        let inputNumberIsZero = (inputNumber == Number.zero.title())
+        
+        // 如果目前數字是 0，再次點擊 0 時不會顯示多個 0
+        if numberLabel.text == Number.zero.title() && inputNumberIsZero {
+            return
+        }
+        
+        addInputString(inputNumber: inputNumber)
+    }
+    
+    private func addInputString(inputNumber: String) {
+        
+        var result: String = ""
+       
+        if let tempNumber = tempNumber {
+            print("tempNumber = \(tempNumber)")
+            
+            if tempNumber == "0" {
+                
+                self.tempNumber = inputNumber
+                
+            } else {
+                
+                self.tempNumber = tempNumber + inputNumber
+                
+            }
+            
+            print("self.tempNumber = \(self.tempNumber ?? "0")")
+            result = result + self.tempNumber!
+            
+        } else {
+            
+            tempNumber = inputNumber
+            result += inputNumber
+            
+        }
+        
+        numberLabel.text = "\(result)"
+    }
+    
+    @IBAction func pressOperationButton(_ sender: UIButton) {
+        
+        isOperating = true
+        isDecimal = false
+        
+        tempNumber = nil
+        previousNumber = numberLabel.text?.toDecimalValue() ?? 0
+        
+        chooseOperationType(tag: sender.tag)
+    }
+    
+    private func chooseOperationType(tag: Int) {
+        
+        switch tag {
+        case OperationType.add.tag():
+            operationType = .add
+            print("operation = \(OperationType.add.title())")
+        case OperationType.sub.tag():
+            operationType = .sub
+            print("operation = \(OperationType.sub.title())")
+        case OperationType.multi.tag():
+            operationType = .multi
+            print("operation = \(OperationType.multi.title())")
+        case OperationType.div.tag():
+            operationType = .div
+            print("operation = \(OperationType.div.title())")
+        case OperationType.none.tag():
+            operationType = .none
+            print("operation = \(OperationType.none.title())")
+        default:
+            print("error: can't find tag in OperationType")
+        }
+    }
+    
+    @IBAction func pressEqualButton(_ sender: UIButton) {
+        
+        calculateResult()
+    }
+    
+    private func calculateResult() {
 
+        let currentNumber = tempNumber?.toDecimalValue() ?? 0
+
+        switch operationType {
+        case .add:
+            result = previousNumber + currentNumber
+        case .sub:
+            result = previousNumber - currentNumber
+        case .multi:
+            result = previousNumber * currentNumber
+        case .div:
+            result = previousNumber / currentNumber
+        case .none:
+            result = currentNumber
+        }
+        print("currentNumber = \(currentNumber), previousNumber = \(previousNumber)")
+        print("result = \(result)")
+        numberLabel.text? = "\(result)"
+    }
+    
+    @IBAction func pressACButton(_ sender: UIButton) {
+        
+        reset()
+    }
+    
+    private func reset() {
+        
+        numberLabel.text = "0"
+        tempNumber = "0"
+        previousNumber = 0
+        result = 0
+        
+        isOperating = false
+        isNegative = false
+        isDecimal = false
+        
+        operationType = .none
+        print("Clear All")
+    }
+    
     /*
     // MARK: - Navigation
 

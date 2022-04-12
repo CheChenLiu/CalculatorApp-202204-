@@ -29,6 +29,7 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var numberLabel: UILabel!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         numberLabel.text = Number.zero.title()
     }
@@ -83,6 +84,28 @@ class CalculatorViewController: UIViewController {
         }
         
         numberLabel.text = "\(result)"
+    }
+    
+    @IBAction func pressDotButton(_ sender: UIButton) {
+        
+        if isDecimal {
+            return
+        }
+        
+        isDecimal = true
+        
+        if isOperating && tempNumber == nil {
+            numberLabel.text = "0."
+            tempNumber = "0."
+            return
+        }
+        
+        if let tempNumber = tempNumber {
+            self.tempNumber = tempNumber + "."
+            numberLabel.text = self.tempNumber
+        } else {
+            numberLabel.text = "0."
+        }
     }
     
     @IBAction func pressOperationButton(_ sender: UIButton) {

@@ -145,6 +145,9 @@
                                 <rect key="frame" x="199" y="662" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="."/>
+                                <connections>
+                                    <action selector="pressDotButton:" destination="Jog-Qo-khf" eventType="touchUpInside" id="8f8-YA-hrV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehg-t2-B3U">
                                 <rect key="frame" x="275" y="662" width="30" height="30"/>
@@ -169,6 +172,14 @@
                                     <action selector="pressACButton:" destination="Jog-Qo-khf" eventType="touchUpInside" id="56g-tn-IB6"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="階乘亦可以遞迴方式定義：0!=1，n!=(n-1)!×n，但由於在此定義下計算負一的階乘會出現除以零，因此無法直接給出負整數的階乘。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dRh-gg-YF7">
+                                <rect key="frame" x="49" y="70" width="317" height="122"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zup-s7-PhN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -251,6 +262,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

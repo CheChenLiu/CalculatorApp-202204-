@@ -108,6 +108,10 @@ class CalculatorViewController: UIViewController {
         }
     }
     
+    @IBAction func pressFactorialButton(_ sender: UIButton) {
+        
+    }
+    
     @IBAction func pressOperationButton(_ sender: UIButton) {
         
         isOperating = true

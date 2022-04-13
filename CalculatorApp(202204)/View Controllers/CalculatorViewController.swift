@@ -95,21 +95,68 @@ class CalculatorViewController: UIViewController {
         isDecimal = true
         
         if isOperating && tempNumber == nil {
+            
             numberLabel.text = "0."
             tempNumber = "0."
             return
         }
         
         if let tempNumber = tempNumber {
+            
             self.tempNumber = tempNumber + "."
             numberLabel.text = self.tempNumber
+            
         } else {
+            
             numberLabel.text = "0."
+            
         }
     }
     
     @IBAction func pressFactorialButton(_ sender: UIButton) {
         
+        if factorial(factorialNumber: self.tempNumber) == 0 {
+            
+            numberLabel.text = "錯誤"
+            
+        } else {
+            
+            numberLabel.text = "\(factorial(factorialNumber: self.tempNumber))"
+        }
+    }
+    
+    //階乘:只接受正整數 0! = 1, 讓階乘數為零時回傳1, 大於零都繼續乘上自己的數字 - 1
+    private func factorial(factorialNumber: String?) -> Int {
+        
+        let intFactorialNumber = Int(factorialNumber ?? "錯誤")
+        
+        guard !isDecimal else {
+            return 0
+        }
+        
+        if let intFactorialNumber = intFactorialNumber {
+            
+            if intFactorialNumber == 0 {
+                
+                return 1
+                
+            } else if intFactorialNumber < 0 {
+                
+                return 0
+                
+            } else {
+                
+                let numberString = "\(intFactorialNumber - 1)"
+                
+                let result = intFactorialNumber * factorial(factorialNumber: numberString)
+                
+                return result
+            }
+            
+        } else {
+            
+            return 0
+        }
     }
     
     @IBAction func pressOperationButton(_ sender: UIButton) {

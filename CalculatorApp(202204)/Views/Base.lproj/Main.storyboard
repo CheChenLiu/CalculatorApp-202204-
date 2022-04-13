@@ -233,7 +233,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NumberLabel" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dz-bl-Yh7">
-                                <rect key="frame" x="40" y="152" width="240" height="80"/>
+                                <rect key="frame" x="40" y="137.5" width="240" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="PJl-vD-PG1"/>
                                 </constraints>
@@ -298,7 +298,7 @@
                             <constraint firstItem="b5x-bn-Tey" firstAttribute="centerY" secondItem="wSH-Yz-MhF" secondAttribute="centerY" id="t3k-c9-TbC"/>
                             <constraint firstItem="diZ-b1-vc2" firstAttribute="centerY" secondItem="wSH-Yz-MhF" secondAttribute="centerY" multiplier="1.4" id="uXD-fx-Nfx"/>
                             <constraint firstItem="Fvx-te-dfd" firstAttribute="centerY" secondItem="wSH-Yz-MhF" secondAttribute="centerY" multiplier="1.2" id="xci-8R-hOE"/>
-                            <constraint firstItem="9dz-bl-Yh7" firstAttribute="centerY" secondItem="wSH-Yz-MhF" secondAttribute="centerY" multiplier="0.8" id="yL7-YE-J88"/>
+                            <constraint firstItem="9dz-bl-Yh7" firstAttribute="centerY" secondItem="wSH-Yz-MhF" secondAttribute="centerY" multiplier="0.74" id="yL7-YE-J88"/>
                         </constraints>
                     </view>
                     <connections>

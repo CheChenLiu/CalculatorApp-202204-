@@ -22,6 +22,7 @@ class LoginViewController: UIViewController {
         let userNameCapitalization = userNameTextField.text?.lowercased() == correctUserName
         
         if userNameCapitalization {
+            print("Login Success, userName = \(userNameTextField.text ?? "")")
             goToCalculatorViewController()
         } else if userNameTextField.text?.isEmpty == true {
             showAlert(title: "使用者名稱不得為空", message: "請重新輸入")

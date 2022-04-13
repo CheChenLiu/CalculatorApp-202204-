@@ -19,6 +19,8 @@ class CalculatorViewController: UIViewController {
     
     private var operationType: OperationType = .none
     
+    private var maxNumberCount: Int = 10
+    
     @IBOutlet weak var numberLabel: UILabel!
     
     override func viewDidLoad() {
@@ -33,8 +35,15 @@ class CalculatorViewController: UIViewController {
         var inputNumber: String = ""
         
         inputNumber = "\(numberTag)"
+        print("inputNumber = \(inputNumber)")
         
-        updateLabelFrame(inputNumber: inputNumber)
+        let tempNumberCount = tempNumber?.count ?? 0
+        
+        if tempNumberCount >= maxNumberCount {
+            print("tempNumberCount = maxNumberCount so addSpace Now")
+        } else {
+            updateLabelFrame(inputNumber: inputNumber)
+        }
     }
     
     private func updateLabelFrame(inputNumber: String) {
@@ -189,6 +198,7 @@ class CalculatorViewController: UIViewController {
     @IBAction func pressEqualButton(_ sender: UIButton) {
         
         calculateResult()
+        updateResult()
     }
     
     private func calculateResult() {
@@ -207,9 +217,50 @@ class CalculatorViewController: UIViewController {
         case .none:
             result = currentNumber
         }
+        
         print("currentNumber = \(currentNumber), previousNumber = \(previousNumber)")
         print("result = \(result)")
+        
         numberLabel.text? = "\(result)"
+    }
+    
+    private func updateResult() {
+        
+        if result.isNaN {
+            
+            numberLabel.text = "錯誤"
+            
+        } else if result >= pow(10, maxNumberCount) {
+            
+            print("result = \(result)")
+            powerFormat(result: result)
+        }
+        
+    }
+    //超過最大數時，result轉換為 x 乘 e 的 y次方 顯示
+    private func powerFormat(result: Decimal) {
+        
+        var power: Double = 0
+        var powerTotal: Decimal = 1
+        let ten: Decimal = 10
+        
+        if result > 0 {
+            
+            power = floor(log10(result.toDoubleValue()))
+            print("power = \(power)")
+            
+        }
+        
+        for _ in 1...Int(power) {
+            powerTotal *= ten
+        }
+        
+        let preResultNumber = result / powerTotal
+        print("line 258")
+        print("preResultNumber = \(preResultNumber)")
+        
+        numberLabel.text = "\(preResultNumber)" + "e" + "\(Int(power))"
+        print("\(preResultNumber)" + "e" + "\(Int(power))")
     }
     
     @IBAction func pressACButton(_ sender: UIButton) {

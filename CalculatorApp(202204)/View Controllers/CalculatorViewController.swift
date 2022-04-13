@@ -7,13 +7,6 @@
 
 import UIKit
 
-extension String {
-    func toDecimalValue() -> Decimal? {
-        let decimal = Decimal(string: self)
-        return decimal
-    }
-}
-
 class CalculatorViewController: UIViewController {
     
     private var tempNumber: String? = "0"

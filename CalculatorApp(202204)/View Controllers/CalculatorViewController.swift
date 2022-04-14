@@ -5,6 +5,8 @@
 //  Created by CheChenLiu on 2022/4/11.
 //
 
+//待完成 format數字、frame、正負號
+
 import UIKit
 
 class CalculatorViewController: UIViewController {
@@ -48,10 +50,10 @@ class CalculatorViewController: UIViewController {
     
     private func updateLabelFrame(inputNumber: String) {
         
-        let inputNumberIsZero = (inputNumber == Number.zero.title())
+        let inputNumberIsZero = inputNumber == Number.zero.title()
         
         // 如果目前數字是 0，再次點擊 0 時不會顯示多個 0
-        if numberLabel.text == Number.zero.title() && inputNumberIsZero {
+        if (numberLabel.text == Number.zero.title() || numberLabel.text == "-0") && inputNumberIsZero {
             return
         }
         
@@ -61,31 +63,31 @@ class CalculatorViewController: UIViewController {
     private func addInputString(inputNumber: String) {
         
         var result: String = ""
+        
+        if isNegative {
+            result = "-"
+        } else {
+            result = ""
+        }
        
         if let tempNumber = tempNumber {
             print("tempNumber = \(tempNumber)")
-            
             if tempNumber == "0" {
-                
                 self.tempNumber = inputNumber
-                
             } else {
-                
                 self.tempNumber = tempNumber + inputNumber
-                
             }
+            print("inputNumber = \(inputNumber)")
             
-            print("self.tempNumber = \(self.tempNumber ?? "0")")
             result = result + self.tempNumber!
-            
+        
         } else {
             
             tempNumber = inputNumber
             result += inputNumber
-            
         }
-        
-        numberLabel.text = "\(result)"
+        print("line99")
+        numberLabel.text = format(string: result)
     }
     
     @IBAction func pressDotButton(_ sender: UIButton) {
@@ -132,7 +134,7 @@ class CalculatorViewController: UIViewController {
         
         let intFactorialNumber = Int(factorialNumber ?? "錯誤")
         
-        guard !isDecimal else {
+        if isDecimal || isNegative {
             return 0
         }
         
@@ -141,18 +143,21 @@ class CalculatorViewController: UIViewController {
             if intFactorialNumber == 0 {
                 
                 return 1
-                
-            } else if intFactorialNumber < 0 {
-                
-                return 0
-                
+
             } else {
                 
                 let numberString = "\(intFactorialNumber - 1)"
                 
-                let result = intFactorialNumber * factorial(factorialNumber: numberString)
-                
-                return result
+                if intFactorialNumber > 20 {
+    
+                    return 0
+                    
+                } else {
+                    
+                    let result = intFactorialNumber * factorial(factorialNumber: numberString)
+                    return result
+                    
+                }
             }
             
         } else {
@@ -161,9 +166,27 @@ class CalculatorViewController: UIViewController {
         }
     }
     
+    private func format(string: String) -> String {
+        
+        if tempNumber == "" {
+            numberLabel.text = "錯誤"
+        }
+        
+        return string
+
+    }
+    
+    
+    @IBAction func pressNegativeButton(_ sender: UIButton) {
+        isNegative = !isNegative
+        print(isNegative)
+        updateLabelFrame(inputNumber: "")
+    }
+    
     @IBAction func pressOperationButton(_ sender: UIButton) {
         
         isOperating = true
+        isNegative = false
         isDecimal = false
         
         tempNumber = nil
@@ -245,7 +268,7 @@ class CalculatorViewController: UIViewController {
         let ten: Decimal = 10
         
         if result > 0 {
-            
+            //floor() 無條件捨去
             power = floor(log10(result.toDoubleValue()))
             print("power = \(power)")
             
@@ -256,7 +279,6 @@ class CalculatorViewController: UIViewController {
         }
         
         let preResultNumber = result / powerTotal
-        print("line 258")
         print("preResultNumber = \(preResultNumber)")
         
         numberLabel.text = "\(preResultNumber)" + "e" + "\(Int(power))"

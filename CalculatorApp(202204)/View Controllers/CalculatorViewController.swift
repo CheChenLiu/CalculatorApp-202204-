@@ -200,7 +200,6 @@ class CalculatorViewController: UIViewController {
                 
                 if !needAppendLastZero.isEmpty {
     
-                    print("line210")
                     result += needAppendLastZero
                     
                 }
@@ -307,7 +306,6 @@ class CalculatorViewController: UIViewController {
         }
         
         print("currentNumber = \(currentNumber), previousNumber = \(previousNumber), operationType = \(operationType.title())")
-        print("result = \(result)")
         
         numberLabel.text? = "\(result)"
     }
@@ -318,8 +316,9 @@ class CalculatorViewController: UIViewController {
             
             numberLabel.text = "錯誤"
             
-        } else if result >= pow(10, maxNumberCount) {
+        } else if (result >= pow(10, maxNumberCount)) || result <= (pow(-10, maxNumberCount) * -1) {
             
+            print("maxNumber = \(pow(10, maxNumberCount)), minNumber = \((pow(-10, maxNumberCount) * -1))")
             print("result = \(result)")
             powerFormat(result: result)
             
@@ -340,6 +339,9 @@ class CalculatorViewController: UIViewController {
             //floor() 無條件捨去
             power = floor(log10(result.toDoubleValue()))
             print("power = \(power)")
+        } else {
+            power = floor(log10(result.toDoubleValue() * -1))
+            print("power = \(power)")
         }
         
         for _ in 1...Int(power) {
@@ -350,8 +352,7 @@ class CalculatorViewController: UIViewController {
         let preResultNumber = result / powerTotal
         print("preResultNumber = \(preResultNumber)")
         
-        numberLabel.text = "\(format(decimal: preResultNumber))" + "e" + "\(Int(power))"
-        print("\(preResultNumber)" + "e" + "\(Int(power))")
+        numberLabel.text = format(decimal: preResultNumber) + "e" + format(decimal: Decimal(power))
     }
     
     @IBAction func pressACButton(_ sender: UIButton) {

@@ -39,7 +39,9 @@ class CalculatorViewController: UIViewController {
         
         let tempNumberCount = tempNumber?.count ?? 0
         
-        if tempNumberCount >= maxNumberCount {
+        if tempNumberCount >= maxNumberCount && !isNegative {
+            print("tempNumberCount = maxNumberCount so addSpace Now")
+        } else if tempNumberCount - 1 >= maxNumberCount && isNegative {
             print("tempNumberCount = maxNumberCount so addSpace Now")
         } else {
             updateLabelFrame(inputNumber: inputNumber)

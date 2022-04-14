@@ -9,7 +9,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    private var correctUserName = "chiliwu"
+    private var correctUserName = "rayliu"
     
     @IBOutlet weak var userNameTextField: UITextField!
     

@@ -73,10 +73,8 @@ class CalculatorViewController: UIViewController {
         if let tempNumber = tempNumber {
             print("tempNumber = \(tempNumber)")
             if tempNumber == "0" && !isNegative && inputNumber != "" {
-                print("line 76")
                 self.tempNumber = inputNumber
             } else {
-                print("line 79")
                 self.tempNumber = tempNumber + inputNumber
             }
             print("tempNumber = \(tempNumber)")
@@ -90,7 +88,6 @@ class CalculatorViewController: UIViewController {
             result += inputNumber
         }
         
-        print("line99")
         numberLabel.text = format(string: result)
     }
     
@@ -199,6 +196,10 @@ class CalculatorViewController: UIViewController {
             } else {
                 
                 if !needAppendLastZero.isEmpty {
+                    
+                    if !decimal.isDecimal {
+                        result += "."
+                    }
     
                     result += needAppendLastZero
                     

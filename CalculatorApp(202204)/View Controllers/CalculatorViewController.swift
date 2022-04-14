@@ -5,7 +5,7 @@
 //  Created by CheChenLiu on 2022/4/11.
 //
 
-//待完成 format數字、frame、正負號
+//待完成 format數字、frame
 
 import UIKit
 
@@ -53,7 +53,7 @@ class CalculatorViewController: UIViewController {
         let inputNumberIsZero = inputNumber == Number.zero.title()
         
         // 如果目前數字是 0，再次點擊 0 時不會顯示多個 0
-        if (numberLabel.text == Number.zero.title() || numberLabel.text == "-0") && inputNumberIsZero {
+        if numberLabel.text == Number.zero.title() && inputNumberIsZero {
             return
         }
         
@@ -72,20 +72,24 @@ class CalculatorViewController: UIViewController {
        
         if let tempNumber = tempNumber {
             print("tempNumber = \(tempNumber)")
-            if tempNumber == "0" {
+            if tempNumber == "0" && !isNegative && inputNumber != "" {
+                print("line 76")
                 self.tempNumber = inputNumber
             } else {
+                print("line 79")
                 self.tempNumber = tempNumber + inputNumber
             }
+            print("tempNumber = \(tempNumber)")
             print("inputNumber = \(inputNumber)")
             
             result = result + self.tempNumber!
-        
+            print("result = \(result)")
         } else {
             
             tempNumber = inputNumber
             result += inputNumber
         }
+        
         print("line99")
         numberLabel.text = format(string: result)
     }
@@ -125,7 +129,9 @@ class CalculatorViewController: UIViewController {
             
         } else {
             
-            numberLabel.text = "\(factorial(factorialNumber: self.tempNumber))"
+            let intFactorialNumber = String(factorial(factorialNumber: self.tempNumber))
+            
+            numberLabel.text = format(string: intFactorialNumber)
         }
     }
     
@@ -167,31 +173,90 @@ class CalculatorViewController: UIViewController {
     }
     
     private func format(string: String) -> String {
-        
-        if tempNumber == "" {
-            numberLabel.text = "錯誤"
-        }
-        
-        return string
 
+        var needAppendLastZero:String = ""
+        var whileString = string
+        
+        while whileString.last == "0" && whileString.contains(".") {
+            
+            needAppendLastZero += "0"
+            whileString.removeLast()
+            print("whileString = \(whileString)")
+        }
+
+        if let decimal = string.toDecimalValue() {
+            
+            var result = format(decimal: decimal)
+            
+            print("decimal = \(decimal)")
+            
+            if string == "-0" {
+                
+                numberLabel.text = "-0"
+                
+                return string
+                
+            } else {
+                
+                if !needAppendLastZero.isEmpty {
+    
+                    print("line210")
+                    result += needAppendLastZero
+                    
+                }
+                
+                return result
+            }
+            
+        } else {
+            
+            return "錯誤"
+            
+        }
     }
     
+    private func format(decimal: Decimal) -> String {
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.maximumFractionDigits = 9
+        let formatterString = formatter.string(from: decimal as NSDecimalNumber) ?? "0"
+        return formatterString
+    }
+    
+    private func getCurrentDecimal() -> Decimal? {
+        if let tempNumber = tempNumber {
+            var result = isNegative ? "-" : ""
+            result += tempNumber
+            return result.toDecimalValue()
+        } else {
+            return nil
+        }
+    }
     
     @IBAction func pressNegativeButton(_ sender: UIButton) {
         isNegative = !isNegative
-        print(isNegative)
+        print("isNegative = \(isNegative)")
         updateLabelFrame(inputNumber: "")
     }
     
     @IBAction func pressOperationButton(_ sender: UIButton) {
+        
+        if let decimal = getCurrentDecimal() {
+            previousNumber = decimal
+        } else {
+            previousNumber = 0
+        }
+        
+        print("previousNumber = \(previousNumber)")
         
         isOperating = true
         isNegative = false
         isDecimal = false
         
         tempNumber = nil
-        previousNumber = numberLabel.text?.toDecimalValue() ?? 0
-        
+
         chooseOperationType(tag: sender.tag)
     }
     
@@ -241,7 +306,7 @@ class CalculatorViewController: UIViewController {
             result = currentNumber
         }
         
-        print("currentNumber = \(currentNumber), previousNumber = \(previousNumber)")
+        print("currentNumber = \(currentNumber), previousNumber = \(previousNumber), operationType = \(operationType.title())")
         print("result = \(result)")
         
         numberLabel.text? = "\(result)"
@@ -257,8 +322,12 @@ class CalculatorViewController: UIViewController {
             
             print("result = \(result)")
             powerFormat(result: result)
+            
+        } else {
+            
+            numberLabel.text = format(decimal: result)
+            
         }
-        
     }
     //超過最大數時，result轉換為 x 乘 e 的 y次方 顯示
     private func powerFormat(result: Decimal) {

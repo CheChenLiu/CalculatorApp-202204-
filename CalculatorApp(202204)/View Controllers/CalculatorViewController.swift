@@ -5,8 +5,6 @@
 //  Created by CheChenLiu on 2022/4/11.
 //
 
-//待完成 format數字、frame
-
 import UIKit
 
 class CalculatorViewController: UIViewController {
@@ -340,17 +338,17 @@ class CalculatorViewController: UIViewController {
             //floor() 無條件捨去
             power = floor(log10(result.toDoubleValue()))
             print("power = \(power)")
-            
         }
         
         for _ in 1...Int(power) {
             powerTotal *= ten
         }
+        print("powerTotal = \(powerTotal)")
         
         let preResultNumber = result / powerTotal
         print("preResultNumber = \(preResultNumber)")
         
-        numberLabel.text = "\(preResultNumber)" + "e" + "\(Int(power))"
+        numberLabel.text = "\(format(decimal: preResultNumber))" + "e" + "\(Int(power))"
         print("\(preResultNumber)" + "e" + "\(Int(power))")
     }
     

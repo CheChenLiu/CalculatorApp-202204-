@@ -12,9 +12,18 @@ class LoginViewController: UIViewController {
     private var correctUserName = "rayliu"
     
     @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    private func setupUI() {
+        
+        userNameTextField.placeholder = "請輸入使用者名稱"
+        loginButton.layer.cornerRadius = 10
+        loginButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     @IBAction func login(_ sender: Any) {

@@ -22,11 +22,21 @@ class CalculatorViewController: UIViewController {
     private var maxNumberCount: Int = 10
     
     @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet var buttons: [UIButton]!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         numberLabel.text = Number.zero.title()
+        setupUI()
+    }
+    
+    private func setupUI() {
+        
+        for button in buttons {
+            button.layer.cornerRadius = 30
+        }
+        
     }
     
     @IBAction func pressNumberButton(_ sender: UIButton) {
